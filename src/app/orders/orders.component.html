@@ -1,0 +1,45 @@
+<div class="container">
+  <h1>Orders</h1>
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+  <table class="table" *ngIf="orders.length > 0">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Date</th>
+        <th>Customer</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>Postcode</th>
+        <th>Country</th>
+        <th>Amount</th>
+        <th>Status</th>
+        <th>Last Modified</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders" (click)="editOrder(order.id)">
+        <td>{{ order.id }}</td>
+        <td>{{ order.date }}</td>
+        <td>{{ order.customer }}</td>
+        <td>{{ order.address1 }}</td>
+        <td>{{ order.city }}</td>
+        <td>{{ order.postcode }}</td>
+        <td>{{ order.country }}</td>
+        <td>{{ order.amount }}</td>
+        <td>{{ order.status }}</td>
+        <td>{{ order.last_modified }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="pagination" class="pagination-buttons">
+    <button class="btn btn-primary" [disabled]="pagination.current_page === 1" (click)="changePage(pagination.current_page - 1)">Previous</button>
+    <button *ngFor="let page of [].constructor(pagination.total_pages); let i = index"
+            class="btn btn-primary"
+            [class.active]="pagination.current_page === i + 1"
+            (click)="changePage(i + 1)">
+      {{ i + 1 }}
+    </button>
+    <button class="btn btn-primary" [disabled]="pagination.current_page === pagination.total_pages" (click)="changePage(pagination.current_page + 1)">Next</button>
+  </div>
+</div>
